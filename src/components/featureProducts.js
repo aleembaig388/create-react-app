@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
+import Loader from "../components/loader";
+import ProductUI from "../components/productUI";
 
 function FeaturedProducts() {
   const [products, setProducts] = useState({
@@ -32,35 +33,20 @@ function FeaturedProducts() {
         });
       });
   }, [URL]);
-  if (products.loading) {
-    return (
-      <div
-        className="flex"
-        style={{ minHeight: "200px", justifyContent: "center" }}
-      >
-        <div className="loader"></div>
-      </div>
-    );
-  }
-  if (products.data) {
-    return (
-      <section>
-        <div id="featured-products">
-          {products.data.map((item) => {
-            return (
-              <p className="shadow">
-                <h3 className="font-bold">{item.name}</h3>
-                <img src={item.avatar} alt="" />
-                <Link to={"/product/" + item.id}>See more deals</Link>
-              </p>
-            );
-          })}
-        </div>
-      </section>
-    );
-  } else {
-    return <div></div>;
-  }
+  return (
+    <React.Fragment>
+      {products.loading && <Loader />}
+      {products.data && (
+        <section>
+          <div id="featured-products">
+            {products.data.map((item) => (
+              <ProductUI product={item} />
+            ))}
+          </div>
+        </section>
+      )}
+    </React.Fragment>
+  );
 }
 
 export default FeaturedProducts;

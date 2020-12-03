@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import ProductDetail from "../components/productdetail";
+import ProductUI from "../components/productUI";
 
 function Product() {
   const [product, setProduct] = useState({
@@ -47,11 +47,15 @@ function Product() {
       </div>
     );
   }
-  if (product.data) {
-    return <ProductDetail product={product.data} />;
-  } else {
-    return <div>Product Not Found</div>;
-  }
+  return (
+    product.data && (
+      <section>
+        <div id="featured-products" style={{ marginTop: "0px" }}>
+          <ProductUI product={product.data} />
+        </div>
+      </section>
+    )
+  );
 }
 
 export default Product;
