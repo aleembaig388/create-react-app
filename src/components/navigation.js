@@ -59,7 +59,7 @@ function Navigation() {
   }
   return (
     <nav>
-      <span style={{ "font-size": "32px" }}>
+      <span style={{ fontSize: "32px" }}>
         <FontAwesomeIcon icon={faBars} onClick={() => setShowMenu(!showMenu)} />
       </span>
       {menuMask}

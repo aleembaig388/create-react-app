@@ -10,7 +10,7 @@ function App() {
   return (
     <React.Fragment>
       <Router>
-        <div style={{ "max-width": "1920px", margin: "0 auto" }}>
+        <div style={{ maxWidth: "1920px", margin: "0 auto" }}>
           <Header />
           <Switch>
             <Route exact path="/">

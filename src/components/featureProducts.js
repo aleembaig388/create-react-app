@@ -40,7 +40,7 @@ function FeaturedProducts() {
         <section>
           <div id="featured-products">
             {products.data.map((item) => (
-              <ProductUI product={item} />
+              <ProductUI key={item.id} product={item} />
             ))}
           </div>
         </section>

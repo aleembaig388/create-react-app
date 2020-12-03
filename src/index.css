@@ -57,7 +57,7 @@
   background-color: #fff;
   box-sizing: border-box;
 }
-#featured-products p h3 {
+#featured-products p span {
   font-size: 21px;
   padding-bottom: 12px;
   text-align: left;
