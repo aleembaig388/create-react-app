@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Loader from "../components/loader";
 import ProductUI from "../components/productUI";
 import { compose } from "redux";
@@ -6,12 +6,11 @@ import { connect } from "react-redux";
 import * as TYPES from "../redux/types/product";
 
 function FeaturedProducts(props) {
-  let URL = "https://5fc885db2af77700165ad663.mockapi.io/api/v1/product";
   const { products, getProduct } = props;
-  const [pL, setPL] = useState(null);
+
   useEffect(() => {
-    setPL(props.getProduct());
-  }, []);
+    getProduct();
+  }, [getProduct]);
 
   return (
     <React.Fragment>
