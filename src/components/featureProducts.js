@@ -1,45 +1,25 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
 import Loader from "../components/loader";
 import ProductUI from "../components/productUI";
+import { compose } from "redux";
+import { connect } from "react-redux";
+import * as TYPES from "../redux/types/product";
 
-function FeaturedProducts() {
-  const [products, setProducts] = useState({
-    loading: false,
-    data: null,
-    error: false,
-  });
+function FeaturedProducts(props) {
   let URL = "https://5fc885db2af77700165ad663.mockapi.io/api/v1/product";
+  const { products, getProduct } = props;
+  const [pL, setPL] = useState(null);
   useEffect(() => {
-    setProducts({
-      loading: true,
-      data: null,
-      error: false,
-    });
-    axios
-      .get(URL)
-      .then((response) => {
-        setProducts({
-          loading: false,
-          data: response.data,
-          error: false,
-        });
-      })
-      .catch(() => {
-        setProducts({
-          loading: false,
-          data: null,
-          error: true,
-        });
-      });
-  }, [URL]);
+    setPL(props.getProduct());
+  }, []);
+
   return (
     <React.Fragment>
-      {products.loading && <Loader />}
-      {products.data && (
+      {products.isLoading && <Loader />}
+      {products.products && (
         <section>
           <div id="featured-products">
-            {products.data.map((item) => (
+            {products.products.map((item) => (
               <ProductUI key={item.id} product={item} />
             ))}
           </div>
@@ -48,5 +28,14 @@ function FeaturedProducts() {
     </React.Fragment>
   );
 }
+const mapStateToProps = (state) => ({
+  products: state.product,
+});
 
-export default FeaturedProducts;
+const mapDispatchToProps = (dispatch) => ({
+  getProduct: (data) =>
+    dispatch({ type: TYPES.GET_PRODUCTS_REQUEST, params: data }),
+});
+export default compose(connect(mapStateToProps, mapDispatchToProps))(
+  FeaturedProducts
+);

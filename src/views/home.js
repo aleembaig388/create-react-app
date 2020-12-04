@@ -1,11 +1,6 @@
 import React from "react";
 import FeaturedProducts from "../components/featureProducts";
-import store from "../redux/store";
-import { AddBug } from "../redux/actions";
 function Home() {
-  console.log(store);
-  store.dispatch(AddBug("Add Bug"));
-  console.log(store.getState());
   return (
     <section id="banners">
       <div style={{ backgroundColor: "#eaeded" }}>
